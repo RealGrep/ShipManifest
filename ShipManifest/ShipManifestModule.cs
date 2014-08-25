@@ -77,12 +77,13 @@ namespace ShipManifest
 
         // Toolbar Integration.
         private static IButton ShipManifestButtonBlizzy;
-        private static ApplicationLauncherButton ShipManifestButtonStock;
+        //private static ApplicationLauncherButton ShipManifestButtonStock;
 
         #region Event handlers
 
         // this is the delagate needed to support the part event handlers
         // extern is needed, as the addon is considered external to KSP, and is expected by the part delagate call.
+        // MMD: [DllImport("user32.dll", EntryPoint = "Part", CharSet = Unicode)]
         static extern public Part.OnActionDelegate OnMouseExit(Part part);
 
         // this is the method used with the delagate
@@ -100,8 +101,8 @@ namespace ShipManifest
             if (ShipManifestSettings.AutoSave)
                 InvokeRepeating("RunSave", ShipManifestSettings.SaveIntervalSec, ShipManifestSettings.SaveIntervalSec);
 
-            if (ShipManifestSettings.EnableBlizzyToolbar)
-            {
+            //if (ShipManifestSettings.EnableBlizzyToolbar)
+            //{
                 ShipManifestButtonBlizzy = ToolbarManager.Instance.add("ResourceManifest", "ResourceManifest");
                 ShipManifestButtonBlizzy.TexturePath = "ShipManifest/Plugins/IconOff_24";
                 ShipManifestButtonBlizzy.ToolTip = "Ship Manifest";
@@ -118,11 +119,11 @@ namespace ShipManifest
                             ManifestController.GetInstance(FlightGlobals.ActiveVessel).SetResourceHighlighting();
                     }
                 };
-            }
-            else
-            {
-                GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
-            }
+            //}
+            //else
+            //{
+            //    GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
+            //}
         }
 
         public void Start()
@@ -155,7 +156,7 @@ namespace ShipManifest
             if (SettingsManager.ShowDebugger)
                 ShipManifestSettings.DebuggerPosition = GUILayout.Window(398648, ShipManifestSettings.DebuggerPosition, DebuggerWindow, " Ship Manifest -  Debug Console - Ver. " + ShipManifestSettings.CurVersion, GUILayout.MinHeight(20));
         }
-
+        /*
         void OnGUIAppLauncherReady()
         {
             if (ApplicationLauncher.Ready && HighLogic.LoadedSceneIsFlight && ShipManifestButtonStock == null)
@@ -182,7 +183,7 @@ namespace ShipManifest
                 GameEvents.onGUIApplicationLauncherReady.Add(OnGUIAppLauncherReady);
             }
         }
-
+        */
         bool shouldToggle()
         {
             return (!MapView.MapIsEnabled && !PauseMenu.isOpen && !FlightResultsDialog.isDisplaying &&
@@ -190,7 +191,7 @@ namespace ShipManifest
                             ManifestController.GetInstance(FlightGlobals.ActiveVessel).CanDrawButton
                             );
         }
-
+        /*
         void onAppLaunchToggleOn()
         {
             if (!shouldToggle()) { ShipManifestButtonStock.SetFalse(); return;  }
@@ -206,7 +207,7 @@ namespace ShipManifest
             ShipManifestButtonStock.SetTexture((Texture)GameDatabase.Instance.GetTexture("ShipManifest/Plugins/IconOff_24", false));
             ManifestController.GetInstance(FlightGlobals.ActiveVessel).ClearResourceHighlighting();
         }
-
+        */
         void DummyVoid() { }
 
         public void Update()
@@ -281,14 +282,14 @@ namespace ShipManifest
         {
             GameEvents.onVesselChange.Remove(OnVesselChange);
             CancelInvoke("RunSave");
-            GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
+            //GameEvents.onGUIApplicationLauncherReady.Remove(OnGUIAppLauncherReady);
             if (ShipManifestButtonBlizzy != null) { 
                 ShipManifestButtonBlizzy.Destroy(); 
             }
-            if (ShipManifestButtonStock != null)
-            {
-                ApplicationLauncher.Instance.RemoveModApplication(ShipManifestButtonStock); 
-            }
+            //if (ShipManifestButtonStock != null)
+            //{
+            //    ApplicationLauncher.Instance.RemoveModApplication(ShipManifestButtonStock); 
+            //}
         }
 
         #endregion

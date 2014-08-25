@@ -206,12 +206,12 @@ namespace ShipManifest
                             int capacity = 0;
                             if (pm is ModuleScienceContainer)
                             {
-						   scienceCount = ((IScienceDataContainer)pm).GetScienceCount();
+                                scienceCount = ((IScienceDataContainer)pm).GetScienceCount();
                                 capacity = ((ModuleScienceContainer)pm).capacity;
                             }
                             else if (pm is ModuleScienceExperiment)
                             {
-						   scienceCount = ((IScienceDataContainer)pm).GetScienceCount();
+                                scienceCount = ((IScienceDataContainer)pm).GetScienceCount();
                                 capacity = 1;
                             }
 
